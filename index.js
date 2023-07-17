@@ -5,6 +5,8 @@ let playerPoints = 0;
 let machinePoints = 0;
 let playerVictories = 0;
 let machineVictories = 0;
+// we define the list of possible choices the machine can make
+let machineChoices = ['ROCK', 'PAPER', 'SCISSOR'];
 
 // these functions will only be called whenever someone reaches 5 points
 // they will declare whoever won and whoever lost the game
@@ -49,20 +51,23 @@ displayScores();
 // these functions are used whenever the player picks 'ROCK,'PAPER', or 'SCISSOR'
 // this function will be called whenver the player picks 'ROCK'
 function playerPicksRock() {
-
-    let computerChoices = ['ROCK', 'PAPER', 'SCISSOR'];
-    let computerRandomAnswer = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    // we make it so that the machine will randomly pick one of the three options from the array
+    let machineRandomAnswer = machineChoices[Math.floor(Math.random() * machineChoices.length)];
     
-    if (computerRandomAnswer === 'ROCK') {
+    // the player picked ROCK, therefore:
+    // if the machine picks ROCK, it's a tie. Nothing changes
+    // if the machine picks PAPER, the machine gains one point. If the machine scored its 5th point, the machine wins
+    // if the machine picks SCISSOR, the player gains one point. If the player scored its 5th point, the player wins
+    if (machineRandomAnswer === 'ROCK') {
         alert("It's a tie!");
-    } else if (computerRandomAnswer === 'PAPER') {
+    } else if (machineRandomAnswer === 'PAPER') {
         machinePoints = machinePoints + 1;
         if (machinePoints >= 5) {
             machineVictories = machineVictories + 1;
             displayScores();
             playerDefeat();
         }
-    } else if (computerRandomAnswer === 'SCISSOR') {
+    } else if (machineRandomAnswer === 'SCISSOR') {
         playerPoints = playerPoints + 1;
         if (playerPoints >= 5) {
             playerVictories = playerVictories + 1;
@@ -71,25 +76,24 @@ function playerPicksRock() {
         }
     }
 
+    // this function is called again to visually update the scores in the webpage
     displayScores();
 }
 
 // this function will be called whenver the player picks 'PAPER'
 function playerPicksPaper() {
-
-    let computerChoices = ['ROCK', 'PAPER', 'SCISSOR'];
-    let computerRandomAnswer = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    let machineRandomAnswer = machineChoices[Math.floor(Math.random() * machineChoices.length)];
     
-    if (computerRandomAnswer === 'ROCK') {
+    if (machineRandomAnswer === 'ROCK') {
         playerPoints = playerPoints + 1;
         if (playerPoints >= 5) {
             playerVictories = playerVictories + 1;
             displayScores();
             playerVictory();
         }
-    } else if (computerRandomAnswer === 'PAPER') {
+    } else if (machineRandomAnswer === 'PAPER') {
         alert("It's a tie!");
-    } else if (computerRandomAnswer === 'SCISSOR') {
+    } else if (machineRandomAnswer === 'SCISSOR') {
         machinePoints = machinePoints + 1;;
         if (machinePoints >= 5) {
             machineVictories = machineVictories + 1;
@@ -103,25 +107,23 @@ function playerPicksPaper() {
 
 // this function will be called whenver the player picks 'SCISSOR'
 function playerPicksScissor() {
-
-    let computerChoices = ['ROCK', 'PAPER', 'SCISSOR'];
-    let computerRandomAnswer = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    let machineRandomAnswer = machineChoices[Math.floor(Math.random() * machineChoices.length)];
     
-    if (computerRandomAnswer === 'ROCK') {
+    if (machineRandomAnswer === 'ROCK') {
         machinePoints = machinePoints + 1;
         if (machinePoints >= 5) {
             machineVictories = machineVictories + 1;
             displayScores();
             playerDefeat();
         }
-    } else if (computerRandomAnswer === 'PAPER') {
+    } else if (machineRandomAnswer === 'PAPER') {
         playerPoints = playerPoints + 1;
         if (playerPoints >= 5) {
             playerVictories = playerVictories + 1;
             displayScores();
             playerVictory();
         }
-    } else if (computerRandomAnswer === 'SCISSOR') {
+    } else if (machineRandomAnswer === 'SCISSOR') {
         alert("It's a tie!");
     }
 
