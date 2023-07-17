@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="index.js"></script>
     <title>Odin Rock Paper Scissors Game</title>
 </head>
 <body>
@@ -13,5 +12,12 @@
         <button onclick=playerPicksPaper()>PAPER</button>
         <button onclick=playerPicksScissor()>SCISSOR</button>
     </div>
+    <div>
+        <h1>Your current score is: <span id="playerScore"></span></h1>
+        <h1>The machine score is: <span id="machineScore"></span></h1>
+        <h1>You have won: <span id="playerMaxScore"></span> times!</h1>
+        <h1>The machine won: <span id="machineMaxScore"></span> times!</h1>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
