@@ -1,0 +1,15 @@
+button {
+    background-color: rgb(59, 179, 219);
+    color: white;
+    width: 120px;
+    height: 60px;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.player-options {
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    margin-top: 10%;
+}
