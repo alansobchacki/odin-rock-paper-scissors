@@ -5,6 +5,8 @@ let playerPoints = 0;
 let machinePoints = 0;
 let playerVictories = 0;
 let machineVictories = 0;
+let secretReward = false;
+
 // we define the list of possible choices the machine can make
 let machineChoices = ['ROCK', 'PAPER', 'SCISSOR'];
 
@@ -15,9 +17,22 @@ function announcerMessages(message) {
 // these functions will only be called whenever someone reaches 5 points
 // they will declare whoever won and whoever lost the game
 function playerVictory() {
+    if (secretReward === true) {
+        announcerMessages("JACKPOT!! Now, claim your reward!");
+        const container = document.querySelector('#player-options');
+        const rewardButton = document.createElement('button');
+        rewardButton.classList.add('reward-button');
+        rewardButton.textContent = "JACKPOT!";
+        container.appendChild(rewardButton);
+
+        rewardButton.addEventListener('click', () => {
+            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        });
+    } else {
     announcerMessages("You won the game! &#127881");
     playerPoints = 0;
     machinePoints = 0;
+    }
 }
 
 function playerDefeat() {
@@ -27,41 +42,26 @@ function playerDefeat() {
 }
 
 // these functions are used to display the winning points variables into the html
-function displayPlayerScore() {
+function displayScores() {
     document.getElementById("playerScore").innerHTML = playerPoints;
-}
-
-function displayMachineScore() {
     document.getElementById("machineScore").innerHTML = machinePoints;
-}
-
-function displayPlayerMaxScore() {
     document.getElementById("playerMaxScore").innerHTML = playerVictories;
-}
-
-function displayMachineMaxScore() {
     document.getElementById("machineMaxScore").innerHTML = machineVictories;
 }
 
-function randomizeGreeting() {
-    let messages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+function displayGreeting() {
+    let messages = [1, 2, 3, 4, 5, 6];
     let randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
-    if (randomMessage === 5) {
-        announcerMessages("OH DAMN SECRET MESSAGE, YOU'RE LUCKY! NOW HIT THAT BUTTON!!");
+    if (randomMessage === 1) {
+        announcerMessages("LUCKY TIME! Win a match, and claim a special reward...")
+        secretReward = true;
     } else {
-        announcerMessages("How about a game of rock, paper, and scissors? Good luck!")
+        announcerMessages("Hint: If you're feeling unlucky, try refreshing this website a little...")
     }
 }
 
-function displayScores() {
-    displayPlayerScore();
-    displayMachineScore();
-    displayPlayerMaxScore();
-    displayMachineMaxScore();
-}
-
-randomizeGreeting();
+displayGreeting();
 displayScores();
 
 // these functions are used whenever the player picks 'ROCK,'PAPER', or 'SCISSOR'
@@ -109,7 +109,7 @@ function playerPicksPaper() {
     } else if (machineRandomAnswer === 'PAPER') {
         announcerMessages("You both picked paper. &#9995");
     } else if (machineRandomAnswer === 'SCISSOR') {
-        machinePoints = machinePoints + 1;;
+        machinePoints = machinePoints + 1;
         announcerMessages("The machine picks scissor. &#9996 You lost this round. &#9940");
         if (machinePoints >= 5) {
             machineVictories = machineVictories + 1;
