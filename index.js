@@ -8,16 +8,20 @@ let machineVictories = 0;
 // we define the list of possible choices the machine can make
 let machineChoices = ['ROCK', 'PAPER', 'SCISSOR'];
 
+function announcerMessages(message) {
+    document.getElementById("announcer").innerHTML = message;
+}
+
 // these functions will only be called whenever someone reaches 5 points
 // they will declare whoever won and whoever lost the game
 function playerVictory() {
-    alert("You won the game!");
+    announcerMessages("You won the game! &#127881");
     playerPoints = 0;
     machinePoints = 0;
 }
 
 function playerDefeat() {
-    alert("You lost the game!");
+    announcerMessages("You lost the game! &#128169");
     playerPoints = 0;
     machinePoints = 0;
 }
@@ -39,6 +43,17 @@ function displayMachineMaxScore() {
     document.getElementById("machineMaxScore").innerHTML = machineVictories;
 }
 
+function randomizeGreeting() {
+    let messages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+    if (randomMessage === 5) {
+        announcerMessages("OH DAMN SECRET MESSAGE, YOU'RE LUCKY! NOW HIT THAT BUTTON!!");
+    } else {
+        announcerMessages("How about a game of rock, paper, and scissors? Good luck!")
+    }
+}
+
 function displayScores() {
     displayPlayerScore();
     displayMachineScore();
@@ -46,6 +61,7 @@ function displayScores() {
     displayMachineMaxScore();
 }
 
+randomizeGreeting();
 displayScores();
 
 // these functions are used whenever the player picks 'ROCK,'PAPER', or 'SCISSOR'
@@ -54,13 +70,10 @@ function playerPicksRock() {
     // we make it so that the machine will randomly pick one of the three options from the array
     let machineRandomAnswer = machineChoices[Math.floor(Math.random() * machineChoices.length)];
     
-    // the player picked ROCK, therefore:
-    // if the machine picks ROCK, it's a tie. Nothing changes
-    // if the machine picks PAPER, the machine gains one point. If the machine scored its 5th point, the machine wins
-    // if the machine picks SCISSOR, the player gains one point. If the player scored its 5th point, the player wins
     if (machineRandomAnswer === 'ROCK') {
-        alert("It's a tie!");
+        announcerMessages("You both picked rock. &#9994");
     } else if (machineRandomAnswer === 'PAPER') {
+        announcerMessages("The machine picks paper. &#9995 You lost this round. &#9940");
         machinePoints = machinePoints + 1;
         if (machinePoints >= 5) {
             machineVictories = machineVictories + 1;
@@ -69,6 +82,7 @@ function playerPicksRock() {
         }
     } else if (machineRandomAnswer === 'SCISSOR') {
         playerPoints = playerPoints + 1;
+        announcerMessages("The machine picks scissors. &#9996 You won this round! &#9989");
         if (playerPoints >= 5) {
             playerVictories = playerVictories + 1;
             displayScores();
@@ -86,15 +100,17 @@ function playerPicksPaper() {
     
     if (machineRandomAnswer === 'ROCK') {
         playerPoints = playerPoints + 1;
+        announcerMessages("The machine picks rock. &#9994 You won this round! &#9989");
         if (playerPoints >= 5) {
             playerVictories = playerVictories + 1;
             displayScores();
             playerVictory();
         }
     } else if (machineRandomAnswer === 'PAPER') {
-        alert("It's a tie!");
+        announcerMessages("You both picked paper. &#9995");
     } else if (machineRandomAnswer === 'SCISSOR') {
         machinePoints = machinePoints + 1;;
+        announcerMessages("The machine picks scissor. &#9996 You lost this round. &#9940");
         if (machinePoints >= 5) {
             machineVictories = machineVictories + 1;
             displayScores();
@@ -111,6 +127,7 @@ function playerPicksScissor() {
     
     if (machineRandomAnswer === 'ROCK') {
         machinePoints = machinePoints + 1;
+        announcerMessages("The machine picks rock. &#9994 You lost this round. &#9940");
         if (machinePoints >= 5) {
             machineVictories = machineVictories + 1;
             displayScores();
@@ -118,14 +135,30 @@ function playerPicksScissor() {
         }
     } else if (machineRandomAnswer === 'PAPER') {
         playerPoints = playerPoints + 1;
+        announcerMessages("The machine picks paper. &#9995 You won this round! &#9989");
         if (playerPoints >= 5) {
             playerVictories = playerVictories + 1;
             displayScores();
             playerVictory();
         }
     } else if (machineRandomAnswer === 'SCISSOR') {
-        alert("It's a tie!");
+        announcerMessages("You both picked scissor. &#9996");
     }
 
     displayScores();
 }
+
+const rockButton =  document.querySelector('#rock-button');
+rockButton.addEventListener('click', () => {
+    playerPicksRock();
+});
+
+const paperButton = document.querySelector('#paper-button');
+paperButton.addEventListener('click', () => {
+    playerPicksPaper();
+});
+
+const scissorButton = document.querySelector('#scissor-button');
+scissorButton.addEventListener('click', () => {
+    playerPicksScissor();
+});
