@@ -1,4 +1,4 @@
-Project #3: Rock Paper Scissors
+Rock Paper Scissors
 =============
 
 A game of Rock Paper Scissors built with JavaScript.
